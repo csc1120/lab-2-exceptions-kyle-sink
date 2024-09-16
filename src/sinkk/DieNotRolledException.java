@@ -10,7 +10,7 @@ package sinkk;
 /**
  * A custom exception thrown when the dice roll is not in the range set by the user
  */
-public class DieNotRolledException extends Throwable {
+public class DieNotRolledException extends RuntimeException {
     @Override
     public String getMessage() {
         return "CurrentValue not in Expected Range";
