@@ -22,7 +22,7 @@ public class Die {
     public final int MAX_SIDES = 100;
     private int currentValue;
     private int numSides;
-    private Random random = new Random();
+    private final Random random = new Random();
 
     /**
      * Creates a die with number of sides (numSides)
@@ -30,21 +30,19 @@ public class Die {
      * @param numSides number of side on the die given by the user
      */
     public Die(int numSides) {
-        try{
-            if(numSides < MIN_SIDES || numSides > MAX_SIDES){
-                throw new IllegalArgumentException();
-            }
-            this.numSides = numSides;
-        } catch(IllegalArgumentException e) {
-            System.out.println("Illegal number of sides: ");
+        if(numSides < MIN_SIDES || numSides > MAX_SIDES){
+            throw new IllegalArgumentException("Bad die creation: Illegal number of sides: " + numSides);
         }
+        this.numSides = numSides;
     }
+
 
     /**
      * Gets the current value then resets current value to 0, if between min and max
      * @return the current value
      */
     public int getCurrentValue() {
+        roll();
         int temp = currentValue;
         try{
             if(currentValue > numSides || currentValue < 1){
