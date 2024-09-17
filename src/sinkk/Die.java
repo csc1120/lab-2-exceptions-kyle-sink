@@ -3,7 +3,7 @@
  * Lab 2 - Exceptions
  * Die class
  * Name: Kyle Sink
- * Last Updated: 9/12/24
+ * Last Updated: 9/17/24
  */
 package sinkk;
 import java.util.Random;
@@ -15,11 +15,11 @@ public class Die {
     /**
      * Min number of sides possible on the die
      */
-    public final int MIN_SIDES = 2;
+    public static final int MIN_SIDES = 2;
     /**
      * Max number of sides possible on the die
      */
-    public final int MAX_SIDES = 100;
+    public static final int MAX_SIDES = 100;
     private int currentValue;
     private final int numSides;
     private final Random random = new Random();
@@ -29,7 +29,7 @@ public class Die {
      * exception if the die is not between min and max number of sides as defined above
      * @param numSides number of side on the die given by the user
      */
-    public Die(int numSides){
+    public Die(int numSides) {
         if(numSides < MIN_SIDES || numSides > MAX_SIDES){
             throw new IllegalArgumentException("Bad die creation: Illegal number of sides: "
                     + numSides);

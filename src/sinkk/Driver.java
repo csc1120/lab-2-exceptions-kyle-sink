@@ -3,7 +3,7 @@
  * Lab 2 - Exceptions
  * Main Driver class
  * Name: Kyle Sink
- * Last Updated: 9/12/24
+ * Last Updated: 9/17/24
  */
 package sinkk;
 
@@ -34,12 +34,6 @@ public class Driver {
         boolean correctFormat = false;
         int[] config;
         do{
-            System.out.print("""
-                           Please enter the number of dice to roll, how many sides the dice have,
-                            and how many rolls to complete, separating the values by a space.
-                            Example: "2 6 1000"\s
-                           \s
-                            Enter Configuration:""");
             try{
                 config = getInput();
                 if(config[0] < minDice || config[0] > maxDice){
@@ -58,8 +52,14 @@ public class Driver {
             }
         } while(!correctFormat);
     }
-    private static int[] getInput() {
 
+    private static int[] getInput() {
+        System.out.print("""
+                           Please enter the number of dice to roll, how many sides the dice have,
+                            and how many rolls to complete, separating the values by a space.
+                            Example: "2 6 1000"\s
+                           \s
+                            Enter Configuration:""");
         int[] intInput = new int[3]; // array to be returned
         Scanner input = new Scanner(System.in); //Scanner
 
