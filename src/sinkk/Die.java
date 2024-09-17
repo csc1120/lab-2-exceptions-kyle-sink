@@ -21,7 +21,7 @@ public class Die {
      */
     public final int MAX_SIDES = 100;
     private int currentValue;
-    private int numSides;
+    private final int numSides;
     private final Random random = new Random();
 
     /**
@@ -29,7 +29,7 @@ public class Die {
      * exception if the die is not between min and max number of sides as defined above
      * @param numSides number of side on the die given by the user
      */
-    public Die(int numSides) {
+    public Die(int numSides){
         if(numSides < MIN_SIDES || numSides > MAX_SIDES){
             throw new IllegalArgumentException("Bad die creation: Illegal number of sides: "
                     + numSides);

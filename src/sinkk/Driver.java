@@ -47,7 +47,8 @@ public class Driver {
                             + config[0]);
                 }
                 Die[] dice = createDice(config[0], config[1]);
-                rollDice(dice, config[1], config[2]);
+                int[] data = rollDice(dice, config[1], config[2]);
+                report(config[0], data, findMax(data));
                 correctFormat = true;
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input: All values must be whole numbers");
@@ -87,22 +88,39 @@ public class Driver {
     }
 
     private static int[] rollDice(Die[] dice, int numSides, int numRolls){
-        int[] values = new int[numRolls];
-        System.out.println(values.length);
+        int[] values = new int[numSides*dice.length - (dice.length - 1)];
         int total = 0;
         for(int i = 0; i < numRolls; i++) {
             for (Die die : dice) {
                 total += die.getCurrentValue();
             }
-            System.out.println(i + " " + numRolls);
-            values[i] = total;
+            values[total - dice.length]++;
             total = 0;
         }
         return values;
     }
 
-}
+    private static int findMax(int[] rolls){
+        int max = -1;
+        for (int roll : rolls) {
+            if (roll > max) {
+                max = roll;
+            }
+        }
+        return max;
+    }
 
-/*
-In the main() method, call getInput() and store the results in an int[]
- */
+    private static void report(int numDice, int[] rolls, int max){
+        final int scale = max / 10;
+        int numStars;
+        for(int i = 0; i < rolls.length; i++){
+            System.out.printf("%-2s:%-9s", numDice + i, rolls[i]);
+            numStars = rolls[i] / scale;
+            for(int j = 0; j < numStars; j++){
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+
+}
