@@ -7,7 +7,6 @@
  */
 package sinkk;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -21,7 +20,7 @@ import java.util.Scanner;
 public class Driver {
     public static void main(String[] args) {
         // Start by asking for input
-        // Check if the input is 3 things seperated by spaces
+        // Check if the input is 3 things separated by spaces
         // Then check if the input is all numbers
         // then check if the input adheres to the rules
         // 2-10 dice
@@ -33,8 +32,7 @@ public class Driver {
         final int minDice = 2;
         final int maxDice = 10;
         boolean correctFormat = false;
-        int[] config = new int[3];
-
+        int[] config;
         do{
             System.out.print("""
                            Please enter the number of dice to roll, how many sides the dice have,
@@ -45,15 +43,15 @@ public class Driver {
             try{
                 config = getInput();
                 if(config[0] < minDice || config[0] > maxDice){
-                    throw new IllegalArgumentException("Bad die creation: Illegal number of dice: " + config[0]);
+                    throw new IllegalArgumentException("Bad die creation: Illegal number of dice: "
+                            + config[0]);
                 }
-                Die[] Dice = new Die[config[0]];
-                for(int i = 0; i < config[0]; i++) {
-                    Dice[i] = new Die(config[1]);
-                }
+                Die[] dice = createDice(config[0], config[1]);
+                rollDice(dice, config[1], config[2]);
                 correctFormat = true;
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input: All values must be whole numbers"); //catch non-whole numbers
+                System.out.println("Invalid input: All values must be whole numbers");
+                //catch non-whole numbers
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage()); //catch more or less than 3
             }
@@ -69,8 +67,8 @@ public class Driver {
         String[] inputArray = userInput.split(" "); //gets input then splits it up
 
         if (inputArray.length != 3) {
-            throw new IllegalArgumentException("Invalid input: Expected 3 values but only received " +
-                    String.valueOf(inputArray.length));
+            throw new IllegalArgumentException("Invalid input: Expected 3 values but only received "
+                    + inputArray.length);
         }
 
         for (int i = 0; i < 3; i++) {
@@ -80,14 +78,31 @@ public class Driver {
 
     } // # of dice/# of sides/Number of rolls
 
-    private Die[] createDice(int numDice, int numSides){
+    private static Die[] createDice(int numDice, int numSides){
         Die[] dice = new Die[numDice]; //add in min and max dice thing
         for (int i = 0; i < numDice; i++) {
             dice[i] = new Die(numSides);
         }
         return dice;
     }
+
+    private static int[] rollDice(Die[] dice, int numSides, int numRolls){
+        int[] values = new int[numRolls];
+        System.out.println(values.length);
+        int total = 0;
+        for(int i = 0; i < numRolls; i++) {
+            for (Die die : dice) {
+                total += die.getCurrentValue();
+            }
+            System.out.println(i + " " + numRolls);
+            values[i] = total;
+            total = 0;
+        }
+        return values;
+    }
+
 }
+
 /*
 In the main() method, call getInput() and store the results in an int[]
  */

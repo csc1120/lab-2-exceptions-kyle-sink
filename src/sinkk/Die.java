@@ -31,7 +31,8 @@ public class Die {
      */
     public Die(int numSides) {
         if(numSides < MIN_SIDES || numSides > MAX_SIDES){
-            throw new IllegalArgumentException("Bad die creation: Illegal number of sides: " + numSides);
+            throw new IllegalArgumentException("Bad die creation: Illegal number of sides: "
+                    + numSides);
         }
         this.numSides = numSides;
     }
